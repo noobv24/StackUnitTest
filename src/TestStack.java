@@ -1,7 +1,10 @@
 package stack;
+import org.junit.Test;
+
 import junit.framework.TestCase;
 public class TestStack extends TestCase{
-	public void testNotEmptyStack() throws StackEmptyException {
+	@Test
+	public void testNotEmptyStack() {
 		 System.out.println("------------testNotEmptyStack------------");
 		 IntegerStack stack = new IntegerStack(10);
 		  
@@ -10,25 +13,26 @@ public class TestStack extends TestCase{
 		 stack.Push("4");
 		 stack.Push("5");
 		 stack.Push("1");
-		  
-		 if (stack.IsEmpty()) 
-			  System.out.println("Stack is empty");
-		 else 
-			  System.out.println("Stack is not empty");
-		  
 		 
-		 System.out.println("Top of stack is " + stack.Peek());
+		 assertFalse(stack.IsEmpty());
+		 
+		 try {
+			assertEquals(stack.Peek(),"1");
+		} catch (StackEmptyException e) {
+			// TODO Auto-generated catch block
+			assertEquals(e.getMessage(),"StackEmptyException: Can't peek when stack is empty");
+		}
 	
-		  
-		 if (stack.Contains("5")) 
-			  System.out.println("Stack contains 5");
-		 else 
-			  System.out.println("Stack does not contain 5");
-		  
-		 System.out.println("Pop value = " + stack.Pop());	
+		 assertTrue(stack.Contains("5"));
+		 try {
+			assertEquals(stack.Pop(),"1");
+		} catch (StackEmptyException e) {
+			// TODO Auto-generated catch block
+			assertEquals(e.getMessage(),"StackEmptyException: Can't pop when stack is empty");
+		}
 	}
-	
-	public void testPushOverMax() throws StackEmptyException {
+	@Test
+	public void testPushOverMax() {
 		 System.out.println("------------testPushOverMax------------");
 		 IntegerStack stack = new IntegerStack(5);
 		  
@@ -41,8 +45,8 @@ public class TestStack extends TestCase{
 		 stack.Push("5");
 		 stack.Push("1");	 
 	}
-	
-	public void testPopFunction() throws StackEmptyException {
+	@Test
+	public void testPopFunction() {
 		 System.out.println("------------testPopFunction------------");
 		 IntegerStack stack = new IntegerStack(10);
 		  
@@ -52,36 +56,40 @@ public class TestStack extends TestCase{
 		 stack.Push("5");
 		 stack.Push("1");
 		 
-		 System.out.println("Pop value = " + stack.Pop());
-		 System.out.println("Pop value = " + stack.Pop());
-		 System.out.println("Pop value = " + stack.Pop());
-		 System.out.println("Pop value = " + stack.Pop());
-		 System.out.println("Pop value = " + stack.Pop());
-		 System.out.println("Pop value = " + stack.Pop());
-		 System.out.println("Pop value = " + stack.Pop());	 
+		 try {
+			assertEquals(stack.Pop()+stack.Pop()+stack.Pop()+stack.Pop()+stack.Pop(),"15423");
+		} catch (StackEmptyException e) {
+			// TODO Auto-generated catch block
+			assertEquals(e.getMessage(),"StackEmptyException: Can't pop when stack is empty");
+		}
 	}
-	
-	public void testEmptyStack() throws StackEmptyException {
+	@Test
+	public void testEmptyStack() {
 		 System.out.println("------------testEmptyStack------------");
+		 
 		 IntegerStack stack = new IntegerStack(10);
 		  
-		  if (stack.IsEmpty()) 
-			  System.out.println("Stack is empty");
-		  else 
-			  System.out.println("Stack is not empty");
-		  
-		  System.out.println("Top of stack is " + stack.Peek());
-		
-		  
-		  if (stack.Contains("5")) 
-			  System.out.println("Stack contains 5");
-		  else 
-			  System.out.println("Stack does not contain 5");
-		  
-		  System.out.println("Pop value = " + stack.Pop());
-	}
+		 assertTrue(stack.IsEmpty());
+		 
+	     try {
+			System.out.println(stack.Peek());
+		} catch (StackEmptyException e) {
+			// TODO Auto-generated catch block
+			assertEquals(e.getMessage(),"StackEmptyException: Can't peek when stack is empty");
+		}
+		 
 	
-	public void testClearFunction() throws StackEmptyException {
+		 assertFalse(stack.Contains("5"));
+		  
+		 try {
+			System.out.println("Pop value = " + stack.Pop());
+		} catch (StackEmptyException e) {
+			// TODO Auto-generated catch block
+			assertEquals(e.getMessage(),"StackEmptyException: Can't pop when stack is empty");
+		}	
+	}
+	@Test
+	public void testClearFunction() {
 		 System.out.println("------------testClearFunction------------");
 		 IntegerStack stack = new IntegerStack(10);
 		  
@@ -93,9 +101,6 @@ public class TestStack extends TestCase{
 		  
 		 stack.Clear();
 		 
-		 if (stack.IsEmpty()) 
-			  System.out.println("Stack is empty");
-		  else 
-			  System.out.println("Stack is not empty");
+		 assertTrue(stack.IsEmpty());
 	}
 }
