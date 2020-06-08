@@ -28,6 +28,20 @@ public class TestStack extends TestCase{
 		 System.out.println("Pop value = " + stack.Pop());	
 	}
 	
+	public void testPushOverMax() throws StackEmptyException {
+		 System.out.println("------------testPushOverMax------------");
+		 IntegerStack stack = new IntegerStack(5);
+		  
+		 stack.Push("3");
+		 stack.Push("2");
+		 stack.Push("4");
+		 stack.Push("5");
+		 stack.Push("1");
+		 stack.Push("4");
+		 stack.Push("5");
+		 stack.Push("1");	 
+	}
+	
 	public void testPopFunction() throws StackEmptyException {
 		 System.out.println("------------testPopFunction------------");
 		 IntegerStack stack = new IntegerStack(10);
